@@ -46,9 +46,15 @@ export default class Lyric {
       let result = timeExp.exec(line)
       if (result) {
         const txt = line.replace(timeExp, '').trim()
+        let __hook = result[3]
+        if (__hook.length === 1) {
+          __hook = __hook + '00'
+        } else if (__hook.length === 2) {
+          __hook = __hook + '0'
+        }
         if (txt) {
           this.lines.push({
-            time: result[1] * 60 * 1000 + result[2] * 1000 + (result[3] || 0) * 10,
+            time: result[1] * 60 * 1000 + result[2] * 1000 + parseInt(__hook),
             txt
           })
         }
